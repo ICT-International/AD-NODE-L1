@@ -22,12 +22,16 @@ Toby Partridge ICT International
 * Commented out arr.push(["digital-count", 3, digital2, src]); and arr.push(["digital-count", 4, digital1, src]); because typically only two digital pulse counters are frequently used.
 * Removed reference to //Digital Eq, equations must run after at the database/dashboard platform.
 * Updated Port10, Port100 and unknown response sections to remove product-id, batchnumber and raw-payload. //arr.push(["raw-payload", 0, buf.slice(0, buf.length), "unknown"]);
+
+20260828: R2-3
+Toby Partridge ICT International
+* Re-labelled inputs description to better match to the physical label on the circuit board silk screen. 
 */
 
 // Structure Type Define, 'nested' or 'flat'
 var TYPE = 'nested';
 
-/*Class Buffer
+/* Class Buffer
 	Purpose: A psuedo buffer class for accessing packet data,
 		allows for uniformity between decoder types
 */
@@ -158,13 +162,16 @@ function primaryDecoder(buf,p){
 		arr.push(["battery-voltage", 0, +((buf.readUInt16LE(byte = byte+4)/1000).toFixed(3)), src, "V"]);
 		
 		src = "adc";
-		var current0 = +(buf.readUInt16LE(byte = byte+2)); //var to store uA  4-20mA input
-		var voltage0 = +(buf.readUInt32LE(byte = byte+2)); //var to store uV0 ADC microVolt input "ADCV0"
-		var voltage1 = +(buf.readUInt32LE(byte = byte+4)); //var to store uV1 ADC microVolt input "ADCV1"
-		arr.push(["current-adc", 0, current0, src, "uA"]); //array pushed uA  4-20mA input
-		arr.push(["voltage-adc", 0, voltage0, src, "uV"]); //array pushed uV0 ADC microVolt input "ADCV0 0-3.0v"
-		arr.push(["voltage-adc", 1, voltage1, src, "uV"]); //array pushed uV1 ADC microVolt input "ADCV1 0-3.0v"
-		arr.push(["temperature", 1, +((buf.readInt32LE(byte = byte+4)/1000).toFixed(3)), src, "C"]); //thermistor1 "T1" 
+		
+		// Create var objects to store data from bytes
+		var current0 = +(buf.readUInt16LE(byte = byte+2)); // var to store current sensor input "I"
+		var voltage0 = +(buf.readUInt32LE(byte = byte+2)); // var to store voltage sensor input "V0"
+		var voltage1 = +(buf.readUInt32LE(byte = byte+4)); // var to store voltage sensor input "V1"
+		// Convert and push values to array.push
+		arr.push(["current-adc", 0, current0, src, "uA"]); // array pushed uA from 4-20mA input "I"
+		arr.push(["voltage-adc", 0, voltage0, src, "uV"]); // array pushed uV microVolt input "V0"
+		arr.push(["voltage-adc", 1, voltage1, src, "uV"]); // array pushed uV microVolt input "V1"
+		arr.push(["temperature", 1, +((buf.readInt32LE(byte = byte+4)/1000).toFixed(3)), src, "C"]); // thermistor temperature "T1" 
 		//Note: T0 input is skipped on ADLA3 models, the channel is repurposed for ADC voltage input "V1" and firmware locked.
 		
 		src = "digital";
