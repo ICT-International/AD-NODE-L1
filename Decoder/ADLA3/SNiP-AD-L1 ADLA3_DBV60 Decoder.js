@@ -165,7 +165,7 @@ function primaryDecoder(buf,p){
 		v_in = v_in / 1000;
 		
 		var stem_circumference = +((v_in * 0.0254).toFixed(3));
-		arr.push(["stem-circumference", 1, stem_circumference, src, "mm"]);
+		arr.push(["stem-circumference", 0, stem_circumference, src, "mm"]);
 		
 		src = "digital";
 		var digital0 = +(buf.readUInt32LE(byte=byte+4)); // var to store digital pulse counter input "D0"
