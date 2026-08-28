@@ -25,7 +25,8 @@ Toby Partridge ICT International
 
 20260828: R2-3
 Toby Partridge ICT International
-* Re-labelled inputs description to better match to the physical label on the circuit board silk screen. 
+* Re-labelled inputs description to better match to the physical label on the circuit board silk screen.
+* Fixed Digital input name and conversion as there was an error converting from 0,1,2,3 into the correct parsed order.
 */
 
 // Structure Type Define, 'nested' or 'flat'
@@ -175,14 +176,15 @@ function primaryDecoder(buf,p){
 		//Note: T0 input is skipped on ADLA3 models, the channel is repurposed for ADC voltage input "V1" and firmware locked.
 		
 		src = "digital";
-		var digital4 = +(buf.readUInt32LE(byte=byte+4));
-		var digital3 = +(buf.readUInt32LE(byte=byte+4));
-		var digital2 = +(buf.readUInt32LE(byte=byte+4));
-		var digital1 = +(buf.readUInt32LE(byte=byte+4));
-		arr.push(["digital-count", 1, digital4, src]);
-		arr.push(["digital-count", 2, digital3, src]);
-		//arr.push(["digital-count", 3, digital2, src]); // Uncomment this line if pulse counter 3 is required.
-		//arr.push(["digital-count", 4, digital1, src]); // Uncomment this line if pulse counter 4 is required.
+		var digital0 = +(buf.readUInt32LE(byte=byte+4)); // var to store digital pulse counter input "D0"
+		var digital1 = +(buf.readUInt32LE(byte=byte+4)); // var to store digital pulse counter input "D1"
+		var digital2 = +(buf.readUInt32LE(byte=byte+4)); // var to store digital pulse counter input "D2"
+		var digital3 = +(buf.readUInt32LE(byte=byte+4)); // var to store digital pulse counter input "D3"
+		// Convert and push values to array.push
+		arr.push(["digital-count", 0, digital0, src]);	 // array pushed digital pulse counter input "D0"
+		arr.push(["digital-count", 1, digital1, src]);   // array pushed digital pulse counter input "D1"
+		//arr.push(["digital-count", 2, digital2, src]); // Uncomment this line if pulse counter "D2" is required.
+		//arr.push(["digital-count", 3, digital3, src]); // Uncomment this line if pulse counter "D3" is required.
 		
 		// Accelerometer values
 		var mult = (2.0 / 32678.0) * 1000;
