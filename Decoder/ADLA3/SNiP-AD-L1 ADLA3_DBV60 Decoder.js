@@ -12,7 +12,7 @@ Toby Partridge ICT International
 	* Fixed Digital input name and conversion as there was an error converting from 0,1,2,3 into the correct parsed order.
 	* Added DBV60 Code segment to decoder section with reference to correct analog input channel "V0".
 
-2026/09/10:
+20260910:
 ICT International Toby Partridge
 	* Increased toFixed from toFixed (3) to toFixed (6), before the “3” was sacrificing accuracy by pushing the result to three digits after the decimal place. 
 	  Six digits after the decimal place allows maintaining of the accuracy during the calculation.
