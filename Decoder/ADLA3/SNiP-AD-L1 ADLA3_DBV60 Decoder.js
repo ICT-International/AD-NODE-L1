@@ -169,7 +169,7 @@ function primaryDecoder(buf,p){
 		// Convert uV to mV
 		v_in = v_in / 1000;
 		
-		var stem_circumference = +((v_in * 0.0254).toFixed(3));
+		var stem_circumference = +((v_in * 0.0254).toFixed(6));
 		arr.push(["stem-circumference", 0, stem_circumference, src, "mm"]);
 		
 		src = "digital";
