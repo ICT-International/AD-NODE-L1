@@ -168,7 +168,17 @@ function primaryDecoder(buf,p){
 		var v_in = voltage0;
 		// Convert uV to mV
 		v_in = v_in / 1000;
-		
+
+		//Wiring and Power:
+		/*
+			Black	= Power+ (+Ub) (5 to 16 Volts DC, typical power of 1mA @ 12volts)
+			Blue	= Groud  (-Ub) (Pwr and Data Ground)
+			Brown	= Analog Signal High (+) (0 to 2500 mV full-scale
+			White	= Analog Signal Lo (-)
+
+			The DBV60 does not require a persistent or permanently powered bus
+			A warm up time of 3seconds is suggested.
+		*/
 		var stem_circumference = +((v_in * 0.0254).toFixed(6));
 		arr.push(["stem-circumference", 0, stem_circumference, src, "mm"]);
 		
