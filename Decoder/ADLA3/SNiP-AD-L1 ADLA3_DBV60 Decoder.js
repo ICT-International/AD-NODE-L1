@@ -172,7 +172,7 @@ function primaryDecoder(buf,p){
 		//Wiring and Power:
 		/*
 			Black	= Power+ (+Ub) (5 to 16 Volts DC, typical power of 1mA @ 12volts)
-			Blue	= Groud  (-Ub) (Pwr and Data Ground)
+			Blue	= Groud  (-Ub) (Pwr Ground)
 			Brown	= Analog Signal High (+) (0 to 2500 mV full-scale
 			White	= Analog Signal Lo (-)
 
